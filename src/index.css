@@ -1,0 +1,92 @@
+:root {
+  --ink: #162033;
+  --ink-soft: #3d4a5c;
+  --mist: #eef2f6;
+  --glacier: #d8e2eb;
+  --snow: #f7f9fb;
+  --stone: #c5d0db;
+  --brand: #1f4f7a;
+  --brand-deep: #163a5c;
+  --gold: #b8922f;
+  --gold-soft: #d4b45a;
+  --line: rgba(22, 32, 51, 0.12);
+  --ease: cubic-bezier(0.22, 1, 0.36, 1);
+  --font-display: "Bricolage Grotesque", system-ui, sans-serif;
+  --font-body: "Figtree", system-ui, sans-serif;
+  --max: 1120px;
+  --nav-h: 4.5rem;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  color: var(--ink);
+  background:
+    radial-gradient(1200px 600px at 10% -10%, #dbe6f0 0%, transparent 55%),
+    radial-gradient(900px 500px at 100% 0%, #e8e4d8 0%, transparent 45%),
+    var(--snow);
+  font-family: var(--font-body);
+  font-size: 1.05rem;
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button,
+input,
+textarea {
+  font: inherit;
+}
+
+button {
+  cursor: pointer;
+}
+
+h1,
+h2,
+h3 {
+  font-family: var(--font-display);
+  line-height: 1.1;
+  letter-spacing: -0.03em;
+  margin: 0;
+}
+
+p {
+  margin: 0;
+}
+
+::selection {
+  background: color-mix(in srgb, var(--brand) 25%, white);
+  color: var(--ink);
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
