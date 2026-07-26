@@ -49,15 +49,17 @@ export default function Home() {
         </div>
 
         <div className="hero__content">
-          <p className="hero__brand" data-reveal="up">
-            Sansar Pet Supply
-          </p>
-          <h1 data-reveal="up" data-delay="1">
-            The best your dog can have
-          </h1>
-          <p className="hero__lede" data-reveal="up" data-delay="2">
-            Selling to the world of pet parents with the best authentic local products in the world.
-          </p>
+          <div className="hero__copy">
+            <p className="hero__brand" data-reveal="up">
+              Sansar Pet Supply
+            </p>
+            <h1 data-reveal="up" data-delay="1">
+              The best your dog can have
+            </h1>
+            <p className="hero__lede" data-reveal="up" data-delay="2">
+              Selling to the world of pet parents with the best authentic local products in the world.
+            </p>
+          </div>
           <div className="hero__actions" data-reveal="up" data-delay="3">
             <Link className="btn btn--gold" to="/products">
               Explore chews
