@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { Link, NavLink, Outlet, useLocation } from 'react-router-dom'
 import { company, navLinks } from '../data'
-import Logo, { LogoMark } from './Logo'
+import Logo from './Logo'
 
 export default function Layout() {
   const location = useLocation()
@@ -43,7 +43,7 @@ export default function Layout() {
       <header className={`nav ${navSolid ? 'nav--solid' : ''} ${menuOpen ? 'nav--open' : ''}`}>
         <div className="nav__inner">
           <Link to="/" className="nav__brand" onClick={closeMenu} aria-label="Sansar Pet home">
-            <Logo markClassName="nav__mark" />
+            <Logo />
           </Link>
 
           <nav className="nav__links" aria-label="Primary">
@@ -109,8 +109,14 @@ export default function Layout() {
           <div className="footer__grid">
             <div className="footer__brand-col">
               <Link to="/" className="footer__brand" aria-label="Sansar Pet home">
-                <LogoMark className="footer__mark" />
-                <span className="footer__name">{company.shortName}</span>
+                <img
+                  className="footer__logo"
+                  src="/images/brand/image.png"
+                  alt="Sansar Pet Supply"
+                  width={120}
+                  height={120}
+                  decoding="async"
+                />
               </Link>
               <p className="footer__tagline">{company.tagline}</p>
               <p className="footer__blurb">{company.blurb}</p>
