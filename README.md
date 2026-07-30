@@ -1,6 +1,6 @@
-# Sansar Pet Supply
+# Sansaar Pet Supply
 
-Static marketing site for Sansar Pet Supply — original Himalayan canine cheese chews.
+Static marketing site for Sansaar Pet Supply — original Himalayan canine cheese chews.
 
 Built with React + Vite. Product photography sourced from the existing [sansarpetsupply.com](https://sansarpetsupply.com/) assets.
 

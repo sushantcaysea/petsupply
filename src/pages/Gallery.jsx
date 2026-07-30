@@ -1,123 +1,72 @@
-import { useEffect, useState } from 'react'
-import { Link } from 'react-router-dom'
 import PageHero from '../components/PageHero'
 import { galleryImages } from '../data'
 import { usePageMotion } from '../hooks'
+import { imgs, media } from '../media'
 
 export default function Gallery() {
   const pageRef = usePageMotion()
-  const [lightbox, setLightbox] = useState(null)
 
-  useEffect(() => {
-    document.body.style.overflow = lightbox != null ? 'hidden' : ''
-    return () => {
-      document.body.style.overflow = ''
-    }
-  }, [lightbox])
-
-  useEffect(() => {
-    if (lightbox == null) return undefined
-    const onKey = (e) => {
-      if (e.key === 'Escape') setLightbox(null)
-      if (e.key === 'ArrowRight') {
-        setLightbox((i) => (i + 1) % galleryImages.length)
-      }
-      if (e.key === 'ArrowLeft') {
-        setLightbox((i) => (i - 1 + galleryImages.length) % galleryImages.length)
-      }
-    }
-    window.addEventListener('keydown', onKey)
-    return () => window.removeEventListener('keydown', onKey)
-  }, [lightbox])
+  const featured = [
+    { type: 'video', src: media.heroVideo, caption: 'Brand atmosphere' },
+    { type: 'image', src: media.lifestyleNew, caption: 'At home with the chew' },
+    { type: 'image', src: media.productStudio, caption: 'Product study' },
+    { type: 'video', src: media.processVideo, caption: 'Craft in motion' },
+    { type: 'image', src: imgs.heroHimalaya, caption: 'Himalayan origin' },
+    { type: 'image', src: imgs.sack, caption: 'Wholesale supply' },
+  ]
 
   return (
-    <main className="page-main" ref={pageRef}>
+    <main className="main" ref={pageRef}>
       <PageHero
+        variant="editorial"
         eyebrow="Gallery"
-        title="Stories behind every chew"
-        lede="Each frame carries its own message — open any image to read the matching story title."
-        image="/images/lifestyle/editorial-15.jpg"
-        imagePosition="center 58%"
+        title="Atmosphere, craft, and supply"
+        lede="Editorial frames, cinema assets, and the everyday world around Original Canine Cheese Chews."
+        image={imgs.homeConcept}
       />
 
-      <section className="gallery">
-        <div className="section-shell">
-          <div className="gallery__mosaic">
-            {galleryImages.map((item, i) => (
-              <button
-                key={`${item.src}-${i}`}
-                type="button"
-                className={`gallery__item is-${item.orient || 'square'} ${item.hasText ? 'has-text' : ''}`}
-                data-reveal="up"
-                data-delay={String((i % 4) + 1)}
-                onClick={() => setLightbox(i)}
-                aria-label={item.caption}
-              >
-                <img src={item.src} alt={item.caption} decoding="async" />
-                <span className="gallery__caption">{item.caption}</span>
-              </button>
-            ))}
+      <section className="section">
+        <div className="container container--wide">
+          <div className="section__head" data-reveal="up">
+            <p className="eyebrow">Featured</p>
+            <h2 className="section-title">Signature visuals</h2>
           </div>
-
-          <div className="page-cta" data-reveal="up">
-            <Link className="btn btn--brand" to="/products">
-              Explore sizes
-            </Link>
-            <Link className="btn btn--ghost-dark" to="/contact">
-              Talk wholesale
-            </Link>
+          <div className="gallery">
+            {featured.map((frame, i) => (
+              <figure key={frame.caption} data-reveal="image" data-delay={String((i % 4) + 1)}>
+                {frame.type === 'video' ? (
+                  <video src={frame.src} autoPlay muted loop playsInline />
+                ) : (
+                  <img src={frame.src} alt={frame.caption} loading="lazy" />
+                )}
+                <figcaption>{frame.caption}</figcaption>
+              </figure>
+            ))}
           </div>
         </div>
       </section>
 
-      {lightbox != null && (
-        <div
-          className="lightbox"
-          role="dialog"
-          aria-modal="true"
-          aria-label="Image gallery"
-          onClick={() => setLightbox(null)}
-        >
-          <button
-            type="button"
-            className="lightbox__close"
-            aria-label="Close"
-            onClick={() => setLightbox(null)}
-          >
-            Close
-          </button>
-          <button
-            type="button"
-            className="lightbox__nav lightbox__nav--prev"
-            aria-label="Previous image"
-            onClick={(e) => {
-              e.stopPropagation()
-              setLightbox((i) => (i - 1 + galleryImages.length) % galleryImages.length)
-            }}
-          >
-            ‹
-          </button>
-          <img
-            src={galleryImages[lightbox].src}
-            alt={galleryImages[lightbox].caption}
-            onClick={(e) => e.stopPropagation()}
-          />
-          <p className="lightbox__caption" onClick={(e) => e.stopPropagation()}>
-            {galleryImages[lightbox].caption}
-          </p>
-          <button
-            type="button"
-            className="lightbox__nav lightbox__nav--next"
-            aria-label="Next image"
-            onClick={(e) => {
-              e.stopPropagation()
-              setLightbox((i) => (i + 1) % galleryImages.length)
-            }}
-          >
-            ›
-          </button>
+      <section className="section" style={{ paddingTop: 0 }}>
+        <div className="container container--wide">
+          <div className="section__head" data-reveal="up">
+            <p className="eyebrow">Library</p>
+            <h2 className="section-title">Editorial &amp; supply archive</h2>
+          </div>
+          <div className="gallery">
+            {galleryImages.map((item, i) => (
+              <figure
+                key={item.src}
+                className={item.hasText ? 'has-text' : undefined}
+                data-reveal="image"
+                data-delay={String((i % 4) + 1)}
+              >
+                <img src={item.src} alt={item.caption} loading="lazy" />
+                <figcaption>{item.caption}</figcaption>
+              </figure>
+            ))}
+          </div>
         </div>
-      )}
+      </section>
     </main>
   )
 }

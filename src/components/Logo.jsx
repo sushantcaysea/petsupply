@@ -1,17 +1,4 @@
-const LOGO = '/images/brand/image.png'
-
-export function LogoMark({ className = '' }) {
-  return (
-    <img
-      className={`logo__seal ${className}`.trim()}
-      src={LOGO}
-      alt=""
-      width={80}
-      height={80}
-      decoding="async"
-    />
-  )
-}
+export const LOGO = '/images/brand/logo-full-light.png'
 
 export default function Logo({ className = '' }) {
   return (
@@ -20,8 +7,8 @@ export default function Logo({ className = '' }) {
         className="logo__img"
         src={LOGO}
         alt="Sansar Pet Supply"
-        width={120}
-        height={120}
+        width={592}
+        height={592}
         decoding="async"
       />
     </span>

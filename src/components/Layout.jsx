@@ -1,30 +1,64 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useLayoutEffect, useRef, useState } from 'react'
 import { Link, NavLink, Outlet, useLocation } from 'react-router-dom'
+import { useLenis } from 'lenis/react'
 import { company, navLinks } from '../data'
+import { useReveal } from '../hooks'
 import Logo from './Logo'
+import PageTransition from './PageTransition'
+import { useLenisLock } from './SmoothScroll'
 
 export default function Layout() {
   const location = useLocation()
+  const lenis = useLenis()
   const [scrolled, setScrolled] = useState(false)
   const [menuOpen, setMenuOpen] = useState(false)
   const [progress, setProgress] = useState(0)
+  const footerRef = useRef(null)
+
+  useLenisLock(menuOpen)
+  useReveal(footerRef, location.pathname)
+
+  useEffect(() => {
+    if ('scrollRestoration' in window.history) {
+      window.history.scrollRestoration = 'manual'
+    }
+  }, [])
+
+  useLayoutEffect(() => {
+    if (lenis) lenis.scrollTo(0, { immediate: true })
+    else window.scrollTo(0, 0)
+    const frame = requestAnimationFrame(() => {
+      if (lenis) lenis.scrollTo(0, { immediate: true })
+      else window.scrollTo(0, 0)
+    })
+    return () => cancelAnimationFrame(frame)
+  }, [location.pathname, lenis])
 
   useEffect(() => {
     setMenuOpen(false)
-    setScrolled(window.scrollY > 20)
-  }, [location.pathname])
+    setScrolled((lenis?.scroll ?? window.scrollY) > 16)
+  }, [location.pathname, lenis])
+
+  useLenis(
+    (instance) => {
+      setScrolled(instance.scroll > 16)
+      const max = instance.limit || 1
+      setProgress(max > 0 ? (instance.scroll / max) * 100 : 0)
+    },
+    [location.pathname],
+  )
 
   useEffect(() => {
+    if (lenis) return undefined
     const onScroll = () => {
-      const y = window.scrollY
-      setScrolled(y > 20)
+      setScrolled(window.scrollY > 16)
       const max = document.documentElement.scrollHeight - window.innerHeight
-      setProgress(max > 0 ? (y / max) * 100 : 0)
+      setProgress(max > 0 ? (window.scrollY / max) * 100 : 0)
     }
     onScroll()
     window.addEventListener('scroll', onScroll, { passive: true })
     return () => window.removeEventListener('scroll', onScroll)
-  }, [location.pathname])
+  }, [lenis, location.pathname])
 
   useEffect(() => {
     document.body.style.overflow = menuOpen ? 'hidden' : ''
@@ -34,15 +68,24 @@ export default function Layout() {
   }, [menuOpen])
 
   const closeMenu = () => setMenuOpen(false)
-  const navSolid = scrolled || menuOpen
+  const jumpToHero = (to) => {
+    closeMenu()
+    const targetPath =
+      typeof to === 'string' ? to.split('#')[0] : typeof to?.pathname === 'string' ? to.pathname : ''
+    if (targetPath && targetPath === location.pathname) {
+      if (lenis) lenis.scrollTo(0, { duration: 1.05 })
+      else window.scrollTo({ top: 0, behavior: 'smooth' })
+    }
+  }
 
   return (
     <div className="page">
+      <PageTransition />
       <div className="scroll-progress" style={{ width: `${progress}%` }} aria-hidden="true" />
 
-      <header className={`nav ${navSolid ? 'nav--solid' : ''} ${menuOpen ? 'nav--open' : ''}`}>
-        <div className="nav__inner">
-          <Link to="/" className="nav__brand" onClick={closeMenu} aria-label="Sansar Pet home">
+      <header className={`nav ${scrolled ? 'nav--scrolled' : ''} ${menuOpen ? 'nav--open' : ''}`}>
+        <div className="nav__shell">
+          <Link to="/" className="nav__brand" onClick={() => jumpToHero('/')} aria-label="Sansar Pet Supply home">
             <Logo />
           </Link>
 
@@ -51,7 +94,7 @@ export default function Layout() {
               <NavLink
                 key={link.to}
                 to={link.to}
-                end={link.to === '/'}
+                onClick={() => jumpToHero(link.to)}
                 className={({ isActive }) => (isActive ? 'is-active' : undefined)}
               >
                 {link.label}
@@ -59,115 +102,97 @@ export default function Layout() {
             ))}
           </nav>
 
-          <Link className="nav__cta" to="/contact">
-            Enquire
-          </Link>
-
-          <button
-            className="nav__toggle"
-            type="button"
-            aria-expanded={menuOpen}
-            aria-controls="mobile-menu"
-            aria-label={menuOpen ? 'Close menu' : 'Open menu'}
-            onClick={() => setMenuOpen((o) => !o)}
-          >
-            <span />
-            <span />
-          </button>
+          <div className="nav__actions">
+            <Link className="btn btn--primary btn--sm nav__cta" to="/contact" onClick={() => jumpToHero('/contact')}>
+              Wholesale
+            </Link>
+            <button
+              className="nav__toggle"
+              type="button"
+              aria-expanded={menuOpen}
+              aria-controls="mobile-nav"
+              aria-label={menuOpen ? 'Close menu' : 'Open menu'}
+              onClick={() => setMenuOpen((o) => !o)}
+            >
+              <span />
+              <span />
+            </button>
+          </div>
         </div>
 
-        <div id="mobile-menu" className={`nav__mobile ${menuOpen ? 'is-open' : ''}`}>
+        <div id="mobile-nav" className="nav__drawer">
+          <NavLink to="/" end onClick={() => jumpToHero('/')}>
+            Home
+          </NavLink>
           {navLinks.map((link) => (
-            <NavLink key={link.to} to={link.to} end={link.to === '/'} onClick={closeMenu}>
+            <NavLink key={link.to} to={link.to} onClick={() => jumpToHero(link.to)}>
               {link.label}
             </NavLink>
           ))}
-          <Link to="/contact" onClick={closeMenu}>
-            Enquire now
+          <Link to="/contact" className="nav__drawer-cta" onClick={() => jumpToHero('/contact')}>
+            Request wholesale
           </Link>
         </div>
       </header>
 
       <Outlet />
 
-      <footer className="footer">
-        <div className="footer__glow" aria-hidden="true" />
-        <div className="section-shell">
-          <div className="footer__cta">
-            <div>
-              <p className="footer__eyebrow">Sansar Pet Supply</p>
-              <h2>Want more information about our products?</h2>
-              <p>
-                Drop us a mail or call — we always get back to you as soon as we receive your query.
-              </p>
-            </div>
-            <Link className="btn btn--gold" to="/contact">
-              Get in touch
-            </Link>
-          </div>
+      {!menuOpen ? (
+        <div className="dock">
+          <Link className="btn btn--primary" to="/contact" onClick={() => jumpToHero('/contact')}>
+            Request wholesale
+          </Link>
+        </div>
+      ) : null}
 
-          <div className="footer__grid">
-            <div className="footer__brand-col">
-              <Link to="/" className="footer__brand" aria-label="Sansar Pet home">
-                <img
-                  className="footer__logo"
-                  src="/images/brand/image.png"
-                  alt="Sansar Pet Supply"
-                  width={120}
-                  height={120}
-                  decoding="async"
-                />
+      <footer className="footer" ref={footerRef}>
+        <div className="footer__cta" data-reveal="up">
+          <div>
+            <p className="eyebrow">Wholesale</p>
+            <h2>Ready to stock the chew?</h2>
+            <p>Custom sizes, private label, Nepal-to-warehouse supply.</p>
+          </div>
+          <Link className="btn btn--primary" to="/contact">
+            Request wholesale
+          </Link>
+        </div>
+
+        <div className="footer__grid">
+          <div data-reveal="up">
+            <div className="footer__brand">
+              <Logo />
+            </div>
+            <p>{company.blurb}</p>
+          </div>
+          <div data-reveal="up" data-delay="1">
+            <span>Explore</span>
+            {navLinks.map((link) => (
+              <Link key={link.to} to={link.to}>
+                {link.label}
               </Link>
-              <p className="footer__tagline">{company.tagline}</p>
-              <p className="footer__blurb">{company.blurb}</p>
-              <div className="footer__social">
-                <span>Connect with us</span>
-                <ul>
-                  {company.socials.map((social) => (
-                    <li key={social.label}>
-                      <a href={social.href} target="_blank" rel="noreferrer">
-                        {social.label}
-                      </a>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            </div>
-
-            <div className="footer__col">
-              <h3>Quick links</h3>
-              <ul className="footer__nav">
-                {navLinks.map((link) => (
-                  <li key={link.to}>
-                    <Link to={link.to}>{link.label}</Link>
-                  </li>
-                ))}
-              </ul>
-            </div>
-
-            {company.offices.map((office) => (
-              <div className="footer__col" key={office.region}>
-                <h3>{office.region}</h3>
-                <ul className="footer__contact">
-                  <li>{office.place}</li>
-                  {office.email ? (
-                    <li>
-                      <a href={`mailto:${office.email}`}>{office.email}</a>
-                    </li>
-                  ) : null}
-                  <li>
-                    <a href={office.phoneHref}>{office.phone}</a>
-                  </li>
-                </ul>
-              </div>
             ))}
+            <Link to="/gallery">Gallery</Link>
           </div>
+          {company.offices.map((office, i) => (
+            <div key={office.region} data-reveal="up" data-delay={String(i + 2)}>
+              <span>{office.region}</span>
+              <p>{office.place}</p>
+              {office.email ? <a href={`mailto:${office.email}`}>{office.email}</a> : null}
+              <a href={office.phoneHref}>{office.phone}</a>
+            </div>
+          ))}
+        </div>
 
-          <div className="footer__bar">
-            <p>
-              © {new Date().getFullYear()} {company.name}. All rights reserved.
-            </p>
-            <p>Original Canine Cheese Chews · Since 2008</p>
+        <div className="footer__bar" data-reveal="up">
+          <p>
+            © {new Date().getFullYear()} {company.name}
+          </p>
+          <div>
+            {company.socials.map((social) => (
+              <a key={social.label} href={social.href} target="_blank" rel="noreferrer">
+                {social.label}
+              </a>
+            ))}
           </div>
         </div>
       </footer>

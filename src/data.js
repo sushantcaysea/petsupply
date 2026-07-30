@@ -1,20 +1,17 @@
 export const navLinks = [
-  { to: '/', label: 'Home' },
-  { to: '/story', label: 'Story' },
-  { to: '/benefits', label: 'Benefits' },
+  { to: '/story', label: 'About' },
   { to: '/products', label: 'Products' },
-  { to: '/process', label: 'Process' },
-  { to: '/gallery', label: 'Gallery' },
+  { to: '/process', label: 'Our process' },
+  { to: '/benefits', label: 'Benefits' },
   { to: '/contact', label: 'Contact' },
 ]
 
 export const company = {
-  name: 'Sansar Pet Supply',
-  shortName: 'Sansar Pet',
-  tagline:
-    'Sansar Pet Supply’s goal is to provide quality, authentic products to pets and their parents all around the world.',
+  name: 'Sansaar Pet Supply',
+  shortName: 'Sansaar Pet',
+  tagline: 'Authentic Himalayan canine cheese chews for pets and parents worldwide.',
   blurb:
-    'Since 2008, Sansar Pet Supply has been supplying Canine Cheese Chews to pioneers in US, European and Asian markets — the largest supplier to exporters in Nepal and India.',
+    'Since 2008 we have supplied Original Canine Cheese Chews to partners across the US, Europe, and Asia — rooted in Himalayan craft, refined for dogs.',
   email: 'info@sansarpetsupply.com',
   offices: [
     {
@@ -49,17 +46,9 @@ export const company = {
 
 export const heroSlides = [
   {
-    src: '/images/lifestyle/dog-portrait-hero.webp',
-    alt: 'Happy dog ready for a natural cheese chew',
-    position: 'dog',
-  },
-  {
-    src: '/images/process/collection.jpg',
-    alt: 'Collecting Himalayan milk for cheese chews',
-  },
-  {
-    src: '/images/process/packaging.jpg',
-    alt: 'Freshly packed canine cheese chews ready for shipment',
+    src: '/images/lifestyle/hero.png',
+    alt: 'Family and dog in the Himalayan foothills',
+    position: 'lifestyle',
   },
 ]
 
@@ -74,6 +63,13 @@ export const marqueeImages = [
   { src: '/images/marquee/marquee-pack.jpg', hasText: false, orient: 'square' },
 ]
 
+export const homeStats = [
+  { value: '2008', label: 'Established' },
+  { value: '800+', label: 'Himalayan farms & co-ops' },
+  { value: '<1%', label: 'Fat content' },
+  { value: '100%', label: 'Natural ingredients' },
+]
+
 export const stats = [
   { value: 2008, label: 'Serving the pet industry since', prefix: '', suffix: '' },
   { value: 800, label: 'Farmers, milk co-ops & dairy centers', prefix: '', suffix: '+' },
@@ -81,67 +77,61 @@ export const stats = [
   { value: 1, label: 'Fat content under', prefix: '<', suffix: '%' },
 ]
 
-/** Homepage patterns inspired by premium pet brands — Sansar content only */
+/** Homepage patterns — Sansaar content, premium voice */
 export const qualityPledges = [
   {
-    title: 'Natural formulations',
-    text: 'Three simple ingredients — skim milk, citrus juice, and salt.',
+    title: 'Three ingredients only',
+    text: 'Skim milk, citrus juice, and salt — nothing more.',
   },
   {
-    title: 'Long-lasting chew',
-    text: 'Hard smoked cheese dogs work several hours to soften.',
+    title: 'Hours of chew time',
+    text: 'Hard smoked cheese dogs work slowly to soften.',
   },
   {
-    title: 'Gentle Himalayan craft',
-    text: 'Pressed, smoked, dried, and aged for two months.',
+    title: 'Aged the Himalayan way',
+    text: 'Pressed, smoked, dried, and cured for two months.',
   },
   {
-    title: 'Strict quality controls',
-    text: 'HACCP, cGMP, and PCQI-verified Good Manufacturing Practices.',
+    title: 'Certified at every step',
+    text: 'HACCP, cGMP, and PCQI-verified manufacturing.',
   },
 ]
 
 export const homePathways = [
   {
-    title: 'For smaller chewers',
-    text: 'Small & Medium — lasting treats for lighter jaws.',
-    image: '/images/lifestyle/home-small.jpg',
-    hasText: true,
-    orient: 'landscape',
+    title: 'Small & Medium',
+    text: 'Lasting chews for lighter jaws.',
+    image: '/images/products/medium-1.jpg',
     to: '/products',
   },
   {
-    title: 'For active dogs',
-    text: 'Large & XLarge — hours of chewing satisfaction.',
-    image: '/images/lifestyle/editorial-20.jpg',
-    hasText: true,
-    orient: 'landscape',
+    title: 'Large & XLarge',
+    text: 'Satisfaction for stronger chewers.',
+    image: '/images/products/large-1.jpg',
     to: '/products',
   },
   {
-    title: 'For wholesale partners',
-    text: 'Mixed Large & custom packing on enquiry.',
-    image: '/images/lifestyle/editorial-4.jpg',
-    hasText: true,
-    orient: 'landscape',
+    title: 'Wholesale & custom',
+    text: 'Mixed sizes and packing on enquiry.',
+    image: '/images/products/sack.jpg',
     to: '/contact',
   },
 ]
 
 export const storyContent = {
   eyebrow: 'Our Story',
-  title: 'More About Us',
-  meaning: 'Sansar means World',
+  title: 'Crafted for the world',
+  meaning: 'Sansaar means World',
   goal:
-    'Sansar Pet Supply’s goal is to provide quality, authentic products to pets and their parents all around the world.',
+    'We craft authentic Himalayan canine cheese chews — so pets and their parents everywhere can share something real, lasting, and clean.',
   beginnings: [
-    'We started from humble beginnings. Sourcing Himalayan Dog Chews from Nepalese farmers and providing them to multiple exporters. Since 2008, Sansar Pet Supply has been supplying Canine Cheese Chews to pioneers in US, European and Asian markets.',
+    'We started from humble beginnings. Sourcing Himalayan Dog Chews from Nepalese farmers and providing them to multiple exporters. Since 2008, Sansaar Pet Supply has been supplying Canine Cheese Chews to pioneers in US, European and Asian markets.',
   ],
   scale: [
     '“Himalayan Dog Chew”, the Canine Cheese Chew has become a category of its own in the pet industry and we are the largest supplier to exporters in Nepal and India. We not only manufacture the chews ourselves but also source them from over 800 farmers, milk co-ops, and dairy centers in the Himalayas.',
   ],
   heritage: [
-    'Since Canine Cheese Chews’ discovery and introduction into the USA market in 2008, Sansar Pet Supply has been serving the pet industry. Long before this “chhurpi” for dogs was introduced as the “Himalayan Dog Chew” in the USA market, we supplied the Nepalese people Cube Cheese Candy Chews or chhurpi.',
+    'Since Canine Cheese Chews’ discovery and introduction into the USA market in 2008, Sansaar Pet Supply has been serving the pet industry. Long before this “chhurpi” for dogs was introduced as the “Himalayan Dog Chew” in the USA market, we supplied the Nepalese people Cube Cheese Candy Chews or chhurpi.',
   ],
   differenceLead:
     'The major difference between the Canine Cheese Chews and chhurpi is that Chhurpi is slightly softer and contains fat and lactose whereas a Canine Cheese Chew is nearly bone hard and is, importantly for dogs, lactose-free with a fat content of less than 1%.',
@@ -299,7 +289,7 @@ export const products = [
 /** Shared product copy from sansarpetsupply.com product pages */
 export const productCopy = {
   description:
-    'The Original Canine Cheese Chew from Sansar Pet Supply is loaded with all the cheesy goodness that our canine friend deserves. The Chew can enhance your dog’s oral health, and it is created using an ancient recipe with traditional methods and naturally-sourced ingredients. Made with hard smoked cheese, the Canine Cheese Chew is a long-lasting chew, and dogs have to work several hours to soften it. The end piece of chew can be microwaved and then puffed and converted into a crunchy treat.',
+    'The Original Canine Cheese Chew from Sansaar Pet Supply is loaded with all the cheesy goodness that our canine friend deserves. The Chew can enhance your dog’s oral health, and it is created using an ancient recipe with traditional methods and naturally-sourced ingredients. Made with hard smoked cheese, the Canine Cheese Chew is a long-lasting chew, and dogs have to work several hours to soften it. The end piece of chew can be microwaved and then puffed and converted into a crunchy treat.',
   ingredients: 'Cheese (Skim Milk, Citrus Juice, Salt)',
   note: 'Our chews have multiple hues because of the production location and process.',
   benefits: [
@@ -326,13 +316,13 @@ export const processSteps = [
     num: '01',
     title: 'Collection',
     text: 'Milk from 100+ Himalayan co-ops above 6,000 ft — grazing grounds free from modern pollution.',
-    image: '/images/process/collection.jpg',
+    image: '/images/process/collection-yak.png',
     hasText: false,
   },
   {
     num: '02',
     title: 'The Art of Production',
-    text: 'Unveiling the art of production of Canine Cheese Chew at Sansar Pet Supply — pasteurized, cream-separated, coagulated, pressed, smoked, dried, and aged for two months.',
+    text: 'Unveiling the art of production of Canine Cheese Chew at Sansaar Pet Supply — pasteurized, cream-separated, coagulated, pressed, smoked, dried, and aged for two months.',
     image: '/images/process/production-craft.jpg',
     hasText: false,
   },
@@ -357,7 +347,7 @@ export const galleryImages = [
     src: '/images/lifestyle/editorial-3.jpg',
     hasText: true,
     orient: 'landscape',
-    caption: 'Exploring the superiority of Sansar\'s Original Canine Cheese Chew',
+    caption: 'Exploring the superiority of Sansaar\'s Original Canine Cheese Chew',
   },
   {
     src: '/images/lifestyle/editorial-5.jpg',
@@ -375,7 +365,7 @@ export const galleryImages = [
     src: '/images/lifestyle/editorial-7.jpg',
     hasText: true,
     orient: 'landscape',
-    caption: 'Unveiling the Original Canine Cheese Chew from Sansar Pet Supply',
+    caption: 'Unveiling the Original Canine Cheese Chew from Sansaar Pet Supply',
   },
   {
     src: '/images/lifestyle/editorial-9.jpg',
