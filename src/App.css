@@ -810,6 +810,8 @@ h2,
   text-transform: uppercase;
   color: var(--chew);
 }
+
+.kb-hero__lede {
   margin-top: 1.15rem;
   max-width: 30rem;
   color: rgba(243, 239, 230, 0.78);
