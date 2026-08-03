@@ -1,4 +1,4 @@
-export const LOGO = '/images/brand/logo-full-light.png'
+export const LOGO = '/images/brand/logo-full.png'
 
 export default function Logo({ className = '' }) {
   return (

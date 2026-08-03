@@ -1,7 +1,8 @@
 import { useEffect, useRef } from 'react'
 import { Link } from 'react-router-dom'
+import HeroVideo from '../components/HeroVideo'
 import { products, qualityPledges } from '../data'
-import { usePageMotion, useProductFlight, useScrollProgress, useViewProgress } from '../hooks'
+import { usePageMotion, useScrollProgress, useViewProgress } from '../hooks'
 import { imgs, media } from '../media'
 
 const faqs = [
@@ -33,17 +34,12 @@ export default function Home() {
   const pledgesRef = useRef(null)
   const catalogRef = useRef(null)
   const stillRef = useRef(null)
-  const flightStartRef = useRef(null)
-  const flightEndRef = useRef(null)
-  const flyerRef = useRef(null)
   const easeScene = (t) => t * t * (3 - 2 * t)
   const processIn = easeScene(useViewProgress(scrubRef))
   const dogsIn = easeScene(useViewProgress(dogsRef))
   const storyIn = easeScene(useViewProgress(storyRef))
   const pledgeProgress = useScrollProgress(pledgesRef)
   const catalogProgress = useScrollProgress(catalogRef)
-
-  useProductFlight(flightStartRef, flightEndRef, flyerRef)
 
   useEffect(() => {
     const still = stillRef.current
@@ -78,35 +74,11 @@ export default function Home() {
 
   return (
     <main className="main" ref={pageRef}>
-      <img
-        ref={flyerRef}
-        className="kb-flight"
-        src={media.productStudio}
-        alt="Original Canine Cheese Chew"
-      />
-
-      <section className="kb-hero" aria-label="Sansaar Pet Supply">
-        <div className="kb-hero__media" aria-hidden="true">
-          <video src={media.heroVideo} autoPlay muted loop playsInline preload="auto" />
-        </div>
-        <div className="kb-hero__shade" aria-hidden="true" />
-
+      <HeroVideo src="/videos/hero.mp4" className="kb-hero" pinDistance={4200} startTime={1} endTime={5} frameCount={84}>
         <div className="kb-hero__content">
           <h1 aria-label="Hard cheese. Hard work.">
             <span className="kb-hero__line" aria-hidden="true">
-              HAR
-              <span className="kb-hero__d">
-                <span className="kb-hero__d-hole" ref={flightStartRef}>
-                  <img
-                    className="kb-hero__d-chew"
-                    src={media.productStudio}
-                    alt=""
-                    draggable={false}
-                  />
-                </span>
-                <span className="kb-hero__d-face">D</span>
-              </span>{' '}
-              CHEESE.
+              Hard cheese.
             </span>
             <span className="kb-hero__line kb-hero__line--accent" aria-hidden="true">
               Hard work.
@@ -125,11 +97,11 @@ export default function Home() {
             </Link>
           </div>
         </div>
-      </section>
+      </HeroVideo>
 
       <section className="kb-split">
-        <div className="kb-split__media kb-split__dock" ref={flightEndRef}>
-          <img className="kb-split__dock-img" src={media.productStudio} alt="" aria-hidden="true" />
+        <div className="kb-split__media kb-split__dock">
+          <img className="kb-split__dock-img kb-split__dock-img--static" src={media.productStudio} alt="" aria-hidden="true" />
         </div>
         <div className="kb-split__copy" data-reveal="right" data-delay="1">
           <p className="eyebrow">Why Sansaar</p>

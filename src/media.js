@@ -10,6 +10,7 @@ export const media = {
 export const imgs = {
   heroHimalaya: '/images/lifestyle/hero-himalaya.png',
   heroFamily: '/images/lifestyle/hero.png',
+  homeThrowHero: '/images/lifestyle/home-throw-hero.png',
   contact: '/images/lifestyle/contact-hero.jpg',
   benefitsHero: '/images/lifestyle/benefits-hero.jpg',
   irishWolfhound: '/images/lifestyle/irish-wolfhound.jpg',

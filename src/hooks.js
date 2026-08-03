@@ -386,6 +386,8 @@ export function useProductFlight(startRef, endRef, flyerRef) {
     const update = () => {
       const s = start.getBoundingClientRect()
       const e = end.getBoundingClientRect()
+      const startStyle = window.getComputedStyle(start)
+      const endStyle = window.getComputedStyle(end)
       const vh = window.innerHeight
       const dockY = vh * 0.52
       const endMid = e.top + e.height * 0.5
@@ -398,20 +400,26 @@ export function useProductFlight(startRef, endRef, flyerRef) {
 
       let t = 1 - remaining / spanRef.current
       t = Math.min(1, Math.max(0, t))
-      const p = ease(t)
-      const flying = p > 0.03 && p < 0.97
-      const docked = p >= 0.97
+      const progressStart = Number.parseFloat(startStyle.getPropertyValue('--flight-start')) || 0
+      const shifted = t <= progressStart ? 0 : (t - progressStart) / (1 - progressStart)
+      const p = ease(Math.min(1, Math.max(0, shifted)))
+      const flying = p > 0.01 && p < 0.995
+      const docked = p >= 0.995
 
       const x = lerp(s.left, e.left, p)
       const y = lerp(s.top, e.top, p)
       const w = lerp(s.width, e.width, p)
       const h = lerp(s.height, e.height, p)
+      const startRotate = Number.parseFloat(startStyle.getPropertyValue('--flight-rotate')) || 0
+      const endRotate = Number.parseFloat(endStyle.getPropertyValue('--flight-rotate')) || 0
+      const rotate = lerp(startRotate, endRotate, p)
 
       flyer.style.visibility = flying ? 'visible' : 'hidden'
       flyer.style.opacity = flying ? '1' : '0'
-      flyer.style.transform = `translate3d(${x.toFixed(1)}px, ${y.toFixed(1)}px, 0)`
+      flyer.style.transform = `translate3d(${x.toFixed(1)}px, ${y.toFixed(1)}px, 0) rotate(${rotate.toFixed(1)}deg)`
       flyer.style.width = `${w.toFixed(1)}px`
       flyer.style.height = `${h.toFixed(1)}px`
+      flyer.style.setProperty('--flight-progress', p.toFixed(4))
 
       start.classList.toggle('is-flying', p > 0.03)
       end.classList.toggle('is-filled', docked)

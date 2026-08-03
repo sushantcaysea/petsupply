@@ -1,21 +1,32 @@
 :root {
-  /* Black edition + crushed newsprint grain — logo blue spot ink */
-  --bg: #0a0908;
-  --panel: rgba(18, 17, 16, 0.82);
-  --ink: #f3efe6;
-  --chew: #d4a36a;
-  --chew-soft: #e2bc88;
-  --muted: rgba(243, 239, 230, 0.68);
-  --faint: rgba(243, 239, 230, 0.42);
-  --line: rgba(243, 239, 230, 0.16);
-  --line-strong: rgba(243, 239, 230, 0.32);
+  /*
+    Light Sansaar palette
+    Ground: cool stone  ·  Panels: clean lift  ·  Ink: slate
+    Brand: logo blues   ·  Display: chew amber  ·  Hero type: alpine mist
+  */
+  --bg: #eef1f6;
+  --surface: #e6ebf3;
+  --panel: #fcfdff;
+  --mist: #eef3f9;
+  --mist-soft: #f7f9fc;
+  --ink: #17191f;
+  --chew: #9a6a30;
+  --chew-soft: #b88348;
+  --muted: #5a6170;
+  --faint: #8b93a3;
+  --line: #d5dbe6;
+  --line-strong: #b8c0cf;
   --brand: #483ce4;
   --brand-mid: #5478f0;
-  --accent: #60c0fc;
-  --accent-ink: #0a0908;
-  --danger: #ef4444;
-  --gradient-brand: linear-gradient(180deg, #483ce4 0%, #5478f0 48%, #60c0fc 100%);
-  --gradient-cta: linear-gradient(135deg, #483ce4 0%, #60c0fc 100%);
+  --accent: #483ce4;
+  --accent-bright: #1a9fd9;
+  --accent-ink: #eef3f9;
+  --danger: #dc2626;
+  --hero-ink: #eef3f9;
+  --hero-muted: rgba(238, 243, 249, 0.84);
+  --studio: #12141a;
+  --gradient-brand: linear-gradient(180deg, #483ce4 0%, #5478f0 52%, #1a9fd9 100%);
+  --gradient-cta: linear-gradient(135deg, #483ce4 0%, #1a9fd9 100%);
   --font-display: 'Bebas Neue', Impact, Haettenschweiler, sans-serif;
   --font-hero: 'Bebas Neue', Impact, Haettenschweiler, sans-serif;
   --font-body: 'Libre Franklin', 'Segoe UI', sans-serif;
@@ -49,37 +60,11 @@ body {
   margin: 0;
   background-color: var(--bg);
   background-image:
-    radial-gradient(120% 80% at 12% 8%, rgba(72, 60, 228, 0.08), transparent 42%),
-    radial-gradient(90% 70% at 88% 18%, rgba(96, 192, 252, 0.05), transparent 46%),
-    /* crumpled fold ridges */
-    repeating-linear-gradient(
-      118deg,
-      transparent 0 14px,
-      rgba(255, 248, 235, 0.017) 14px 15px,
-      transparent 15px 31px,
-      rgba(0, 0, 0, 0.18) 31px 32px
-    ),
-    repeating-linear-gradient(
-      28deg,
-      transparent 0 18px,
-      rgba(255, 248, 235, 0.012) 18px 19px,
-      transparent 19px 40px,
-      rgba(0, 0, 0, 0.14) 40px 41px
-    ),
-    /* soft crushed pools */
-    radial-gradient(ellipse 40% 28% at 30% 40%, rgba(255, 245, 230, 0.035), transparent 70%),
-    radial-gradient(ellipse 35% 25% at 70% 65%, rgba(0, 0, 0, 0.35), transparent 70%),
-    radial-gradient(ellipse 50% 30% at 50% 15%, rgba(255, 245, 230, 0.025), transparent 65%),
+    radial-gradient(100% 70% at 8% 0%, rgba(72, 60, 228, 0.06), transparent 50%),
+    radial-gradient(80% 55% at 92% 12%, rgba(26, 159, 217, 0.07), transparent 48%),
+    radial-gradient(60% 40% at 50% 100%, rgba(154, 106, 48, 0.04), transparent 55%),
     var(--paper-grain);
-  background-size:
-    auto,
-    auto,
-    auto,
-    auto,
-    auto,
-    auto,
-    auto,
-    180px 180px;
+  background-size: auto, auto, auto, 200px 200px;
   background-attachment: fixed;
   color: var(--ink);
   font-family: var(--font-body);
@@ -114,8 +99,8 @@ button {
 }
 
 ::selection {
-  background: rgba(72, 60, 228, 0.35);
-  color: #fff;
+  background: rgba(72, 60, 228, 0.28);
+  color: var(--mist);
 }
 
 :focus-visible {
@@ -144,6 +129,15 @@ ul {
   margin: 0;
   padding: 0;
   list-style: none;
+}
+
+ol {
+  margin: 0;
+  padding: 0;
+}
+
+strong {
+  font-weight: 700;
 }
 
 @media (prefers-reduced-motion: reduce) {
