@@ -7,12 +7,14 @@ import 'lenis/dist/lenis.css'
 gsap.registerPlugin(ScrollTrigger)
 
 const lenisOptions = {
-  autoRaf: true,
-  lerp: 0.08,
-  duration: 1.05,
+  // Driven by GSAP ticker below — keeps scroll + ScrollTrigger in one clock
+  autoRaf: false,
+  lerp: 0.07,
+  duration: 1.2,
+  easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
   smoothWheel: true,
   wheelMultiplier: 0.85,
-  touchMultiplier: 1,
+  touchMultiplier: 1.1,
   syncTouch: false,
   anchors: {
     offset: -72,
@@ -38,10 +40,17 @@ function LenisScrollTriggerBridge() {
 
     const onScroll = () => ScrollTrigger.update()
     lenis.on('scroll', onScroll)
+
+    const tick = (time) => {
+      lenis.raf(time * 1000)
+    }
+    gsap.ticker.add(tick)
+    gsap.ticker.lagSmoothing(0)
     ScrollTrigger.refresh()
 
     return () => {
       lenis.off('scroll', onScroll)
+      gsap.ticker.remove(tick)
     }
   }, [lenis])
 
@@ -68,8 +77,8 @@ export default function SmoothScroll({ children }) {
       options={{
         ...lenisOptions,
         smoothWheel: enabled,
-        lerp: enabled ? 0.08 : 1,
-        duration: enabled ? 1.05 : 0,
+        lerp: enabled ? 0.07 : 1,
+        duration: enabled ? 1.2 : 0,
       }}
     >
       <LenisScrollTriggerBridge />

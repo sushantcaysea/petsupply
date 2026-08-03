@@ -5,7 +5,6 @@ import ChewShowcase3D from './ChewShowcase3D'
 export default function HeroChew({ className = '', children }) {
   const sectionRef = useRef(null)
   const stageRef = useRef(null)
-  const parallaxRef = useRef(null)
   const productRef = useRef(null)
   const contentRef = useRef(null)
   const cueRef = useRef(null)
@@ -15,16 +14,14 @@ export default function HeroChew({ className = '', children }) {
   useLayoutEffect(() => {
     const section = sectionRef.current
     const stage = stageRef.current
-    const parallax = parallaxRef.current
     const product = productRef.current
     const content = contentRef.current
     const cue = cueRef.current
     const floor = floorRef.current
     const glow = glowRef.current
-    if (!section || !stage || !product || !parallax) return undefined
+    if (!section || !stage || !product) return undefined
 
     const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches
-    const finePointer = window.matchMedia('(pointer: fine)').matches
     const isCompact = window.matchMedia('(max-width: 960px)').matches
     const floatY = isCompact ? -6 : -11
     const shadowScaleX = isCompact ? 0.86 : 0.78
@@ -100,50 +97,7 @@ export default function HeroChew({ className = '', children }) {
       }
     }, section)
 
-    let onMove
-    let onLeave
-
-    if (!reduce && finePointer) {
-      gsap.set(parallax, { transformPerspective: 900 })
-
-      const px = gsap.quickTo(parallax, 'x', { duration: 0.75, ease: 'power3.out' })
-      const py = gsap.quickTo(parallax, 'y', { duration: 0.75, ease: 'power3.out' })
-      const rx = gsap.quickTo(parallax, 'rotateX', { duration: 0.85, ease: 'power3.out' })
-      const ry = gsap.quickTo(parallax, 'rotateY', { duration: 0.85, ease: 'power3.out' })
-      const gx = glow ? gsap.quickTo(glow, 'x', { duration: 1, ease: 'power3.out' }) : null
-      const gy = glow ? gsap.quickTo(glow, 'y', { duration: 1, ease: 'power3.out' }) : null
-
-      onMove = (event) => {
-        const rect = section.getBoundingClientRect()
-        if (!rect.width || !rect.height) return
-        const nx = ((event.clientX - rect.left) / rect.width - 0.5) * 2
-        const ny = ((event.clientY - rect.top) / rect.height - 0.5) * 2
-        px(nx * 16)
-        py(ny * 10)
-        ry(nx * 5)
-        rx(-ny * 3.5)
-        gx?.(nx * 28)
-        gy?.(ny * 20)
-      }
-
-      onLeave = () => {
-        px(0)
-        py(0)
-        rx(0)
-        ry(0)
-        gx?.(0)
-        gy?.(0)
-      }
-
-      section.addEventListener('pointermove', onMove)
-      section.addEventListener('pointerleave', onLeave)
-    }
-
-    return () => {
-      if (onMove) section.removeEventListener('pointermove', onMove)
-      if (onLeave) section.removeEventListener('pointerleave', onLeave)
-      ctx.revert()
-    }
+    return () => ctx.revert()
   }, [])
 
   return (
@@ -167,7 +121,7 @@ export default function HeroChew({ className = '', children }) {
 
         <div ref={stageRef} className="hero-chew__visual">
           <div className="hero-chew__showcase">
-            <div ref={parallaxRef} className="hero-chew__parallax">
+            <div className="hero-chew__parallax">
               <span ref={glowRef} className="hero-chew__catch" aria-hidden="true" />
               <div ref={productRef} className="hero-chew__product">
                 <ChewShowcase3D spinning />

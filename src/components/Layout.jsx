@@ -73,7 +73,7 @@ export default function Layout() {
     const targetPath =
       typeof to === 'string' ? to.split('#')[0] : typeof to?.pathname === 'string' ? to.pathname : ''
     if (targetPath && targetPath === location.pathname) {
-      if (lenis) lenis.scrollTo(0, { duration: 1.05 })
+      if (lenis) lenis.scrollTo(0, { duration: 1.2 })
       else window.scrollTo({ top: 0, behavior: 'smooth' })
     }
   }

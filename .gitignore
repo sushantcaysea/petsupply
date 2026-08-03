@@ -12,6 +12,11 @@ dist
 dist-ssr
 *.local
 
+# Temp / local dumps
+.tmp-hero-frames
+.tmp*
+assets/source/_tmp-hero-frames/
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json
