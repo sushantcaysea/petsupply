@@ -43,7 +43,7 @@ export default function ChewShowcase3D({
       const h = video.videoHeight
       if (!(w > 0 && h > 0) || video.readyState < 2) return false
 
-      const maxW = 720
+      const maxW = window.matchMedia('(max-width: 960px)').matches ? 480 : 720
       const scale = Math.min(1, maxW / w)
       const cw = Math.round(w * scale)
       const ch = Math.round(h * scale)

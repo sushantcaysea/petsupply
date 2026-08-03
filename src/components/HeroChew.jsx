@@ -25,17 +25,21 @@ export default function HeroChew({ className = '', children }) {
 
     const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches
     const finePointer = window.matchMedia('(pointer: fine)').matches
+    const isCompact = window.matchMedia('(max-width: 960px)').matches
+    const floatY = isCompact ? -6 : -11
+    const shadowScaleX = isCompact ? 0.86 : 0.78
+    const shadowY = isCompact ? 3 : 5
 
     const ctx = gsap.context(() => {
       if (content) {
         gsap.fromTo(
           content.children,
-          { autoAlpha: 0, y: 22 },
+          { autoAlpha: 0, y: isCompact ? 14 : 22 },
           {
             autoAlpha: 1,
             y: 0,
-            duration: reduce ? 0.01 : 0.7,
-            stagger: reduce ? 0 : 0.08,
+            duration: reduce ? 0.01 : isCompact ? 0.55 : 0.7,
+            stagger: reduce ? 0 : isCompact ? 0.05 : 0.08,
             ease: 'power3.out',
             delay: reduce ? 0 : 0.08,
           },
@@ -45,8 +49,8 @@ export default function HeroChew({ className = '', children }) {
       if (!reduce) {
         gsap.fromTo(
           stage,
-          { autoAlpha: 0, y: 28, scale: 0.95 },
-          { autoAlpha: 1, y: 0, scale: 1, duration: 1, ease: 'power3.out', delay: 0.12 },
+          { autoAlpha: 0, y: isCompact ? 18 : 28, scale: 0.95 },
+          { autoAlpha: 1, y: 0, scale: 1, duration: isCompact ? 0.75 : 1, ease: 'power3.out', delay: 0.12 },
         )
 
         if (floor) {
@@ -60,18 +64,18 @@ export default function HeroChew({ className = '', children }) {
         const breathe = gsap.timeline({
           repeat: -1,
           yoyo: true,
-          defaults: { duration: 3.4, ease: 'sine.inOut' },
+          defaults: { duration: isCompact ? 3.8 : 3.4, ease: 'sine.inOut' },
           delay: 1.1,
         })
-        breathe.to(product, { y: -11 }, 0)
+        breathe.to(product, { y: floatY }, 0)
         if (floor) {
           breathe.to(
             floor,
             {
-              scaleX: 0.78,
+              scaleX: shadowScaleX,
               scaleY: 0.88,
               autoAlpha: 0.55,
-              y: 5,
+              y: shadowY,
             },
             0,
           )
