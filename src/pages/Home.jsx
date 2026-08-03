@@ -1,6 +1,6 @@
 import { useEffect, useRef } from 'react'
 import { Link } from 'react-router-dom'
-import HeroVideo from '../components/HeroVideo'
+import HeroChew from '../components/HeroChew'
 import { products, qualityPledges } from '../data'
 import { usePageMotion, useScrollProgress, useViewProgress } from '../hooks'
 import { imgs, media } from '../media'
@@ -74,34 +74,39 @@ export default function Home() {
 
   return (
     <main className="main" ref={pageRef}>
-      <HeroVideo src="/videos/hero.mp4" className="kb-hero" pinDistance={4200} startTime={1} endTime={5} frameCount={84}>
-        <div className="kb-hero__content">
-          <h1 aria-label="Hard cheese. Hard work.">
-            <span className="kb-hero__line" aria-hidden="true">
-              Hard cheese.
-            </span>
-            <span className="kb-hero__line kb-hero__line--accent" aria-hidden="true">
-              Hard work.
-            </span>
-          </h1>
-          <p className="kb-hero__lede">
-            Original Canine Cheese Chews from the Himalayas — nearly bone-hard, lactose-free, built for wholesale
-            partners who need a SKU that lasts.
-          </p>
-          <div className="kb-hero__actions">
-            <Link className="btn btn--primary" to="/contact">
-              Request wholesale
-            </Link>
-            <Link className="btn btn--secondary" to="/products">
-              See sizes
-            </Link>
-          </div>
+      <HeroChew>
+        <p className="hero-chew__brand">Sansaar Pet Supply</p>
+        <p className="hero-chew__eyebrow">Est. 2008 · Himalaya</p>
+        <h1 className="hero-chew__title" aria-label="Hard cheese. Hard work.">
+          <span className="hero-chew__line" aria-hidden="true">
+            Hard cheese.
+          </span>
+          <span className="hero-chew__line hero-chew__line--accent" aria-hidden="true">
+            Hard work.
+          </span>
+        </h1>
+        <p className="hero-chew__lede">
+          Original Canine Cheese Chews from the Himalayas — nearly bone-hard, lactose-free, built for wholesale
+          partners who need a SKU that lasts.
+        </p>
+        <div className="hero-chew__actions">
+          <Link className="btn btn--primary" to="/contact">
+            Request wholesale
+          </Link>
+          <Link className="btn btn--secondary" to="/products">
+            See sizes
+          </Link>
         </div>
-      </HeroVideo>
+      </HeroChew>
 
       <section className="kb-split">
         <div className="kb-split__media kb-split__dock">
-          <img className="kb-split__dock-img kb-split__dock-img--static" src={media.productStudio} alt="" aria-hidden="true" />
+          <img
+            className="kb-split__dock-img kb-split__dock-img--static"
+            src={media.productStudio}
+            alt="Original Canine Cheese Chew"
+            decoding="async"
+          />
         </div>
         <div className="kb-split__copy" data-reveal="right" data-delay="1">
           <p className="eyebrow">Why Sansaar</p>
@@ -273,7 +278,7 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="section">
+      <section className="section section--ground">
         <div className="container">
           <div className="section__head" data-reveal="up">
             <p className="eyebrow">FAQ</p>

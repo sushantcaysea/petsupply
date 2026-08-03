@@ -87,24 +87,33 @@ export default function Layout() {
         <div className="nav__shell">
           <Link to="/" className="nav__brand" onClick={() => jumpToHero('/')} aria-label="Sansar Pet Supply home">
             <Logo />
+            <span className="nav__brand-meta" aria-hidden="true">
+              <span>Est. 2008</span>
+              <span>Himalaya</span>
+            </span>
           </Link>
 
-          <nav className="nav__links" aria-label="Primary">
-            {navLinks.map((link) => (
-              <NavLink
-                key={link.to}
-                to={link.to}
-                onClick={() => jumpToHero(link.to)}
-                className={({ isActive }) => (isActive ? 'is-active' : undefined)}
-              >
-                {link.label}
-              </NavLink>
-            ))}
+          <nav className="nav__rail" aria-label="Primary">
+            <div className="nav__links">
+              {navLinks.map((link) => (
+                <NavLink
+                  key={link.to}
+                  to={link.to}
+                  onClick={() => jumpToHero(link.to)}
+                  className={({ isActive }) => (isActive ? 'is-active' : undefined)}
+                >
+                  <span>{link.label}</span>
+                </NavLink>
+              ))}
+            </div>
           </nav>
 
           <div className="nav__actions">
-            <Link className="btn btn--primary btn--sm nav__cta" to="/contact" onClick={() => jumpToHero('/contact')}>
-              Wholesale
+            <span className="nav__coords" aria-hidden="true">
+              27°N · 85°E
+            </span>
+            <Link className="nav__cta" to="/contact" onClick={() => jumpToHero('/contact')}>
+              <span>Wholesale</span>
             </Link>
             <button
               className="nav__toggle"
@@ -121,6 +130,7 @@ export default function Layout() {
         </div>
 
         <div id="mobile-nav" className="nav__drawer">
+          <p className="nav__drawer-kicker">Navigate the range</p>
           <NavLink to="/" end onClick={() => jumpToHero('/')}>
             Home
           </NavLink>
@@ -188,6 +198,7 @@ export default function Layout() {
             © {new Date().getFullYear()} {company.name}
           </p>
           <div>
+            <Link to="/sitemap">Sitemap</Link>
             {company.socials.map((social) => (
               <a key={social.label} href={social.href} target="_blank" rel="noreferrer">
                 {social.label}

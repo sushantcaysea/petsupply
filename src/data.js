@@ -3,6 +3,7 @@ export const navLinks = [
   { to: '/products', label: 'Products' },
   { to: '/process', label: 'Our process' },
   { to: '/benefits', label: 'Benefits' },
+  { to: '/blog', label: 'Blog' },
   { to: '/contact', label: 'Contact' },
 ]
 
@@ -428,3 +429,5 @@ export const galleryImages = [
     caption: 'Natural color and craft in every chew',
   },
 ]
+
+export { blogPosts } from './data/blogPosts'

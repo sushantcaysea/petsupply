@@ -1,9 +1,9 @@
 :root {
   /*
-    Light Sansaar palette
-    Ground: cool stone  ·  Panels: clean lift  ·  Ink: slate
-    Brand: logo blues   ·  Display: chew amber  ·  Hero type: alpine mist
+    Light Sansaar ground sitewide
+    Hero keeps its own cinematic plate
   */
+  --ground: #eef1f6;
   --bg: #eef1f6;
   --surface: #e6ebf3;
   --panel: #fcfdff;

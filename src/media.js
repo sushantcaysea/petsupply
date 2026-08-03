@@ -3,8 +3,11 @@ export const media = {
   heroVideo: '/media/hero.mp4',
   processVideo: '/media/process.mp4',
   productStudio: '/media/product.png',
+  productChurpi: '/images/products/churpi.png',
   productRecipe: '/images/products/recipe-chew-stack.png',
   lifestyleNew: '/media/lifestyle.png',
+  heroChewCinematic: '/images/lifestyle/hero-chew-cinematic.png',
+  chewSpin: '/videos/chew-spin-light-loop.mp4',
 }
 
 export const imgs = {
