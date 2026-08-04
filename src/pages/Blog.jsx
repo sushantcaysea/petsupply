@@ -20,10 +20,12 @@ export default function Blog() {
 
       <section className="section blog-list">
         <div className="container container--wide">
-          <div className="section__head" data-reveal="up">
-            <p className="eyebrow">Articles</p>
+          <div className="section__head blog-list__head" data-reveal="up">
+            <p className="blog-list__stamp">Articles</p>
             <h2 className="section-title">From the Sansar journal</h2>
-            <p className="section-lede">Exact posts from sansarpetsupply.com, kept for partners and pet parents alike.</p>
+            <p className="section-lede">
+              Exact posts from sansarpetsupply.com, kept for partners and pet parents alike.
+            </p>
           </div>
 
           <div className="blog-grid">

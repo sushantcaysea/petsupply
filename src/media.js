@@ -11,7 +11,7 @@ export const media = {
 }
 
 export const imgs = {
-  heroHimalaya: '/images/lifestyle/hero-himalaya.png',
+  heroHimalaya: '/images/lifestyle/mount-everest.png',
   heroFamily: '/images/lifestyle/hero.png',
   homeThrowHero: '/images/lifestyle/home-throw-hero.png',
   contact: '/images/lifestyle/contact-hero.jpg',
@@ -27,8 +27,8 @@ export const imgs = {
   storyDiff: '/images/story/story-diff-chews.jpg',
   processCollection: '/images/process/collection-yak.png',
   processCraft: '/images/process/production-craft.jpg',
-  processQuality: '/images/process/quality.jpg',
-  processPack: '/images/process/packaging-hq.jpg',
+  processQuality: '/images/process/quality-stage.png',
+  processPack: '/images/process/packaging-stage.png',
   processArt: '/images/process/process-craft-hero.png',
   processCutting: '/images/process/cutting.jpg',
   sack: '/images/products/sack.jpg',

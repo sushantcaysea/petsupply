@@ -76,40 +76,59 @@ export default function Contact() {
         imagePosition="60% 40%"
       />
 
-      <CurtainSplit className="contact">
-        <CurtainPanel as="aside" side="left" className="contact__side">
-          <p className="eyebrow">Offices</p>
-          <h2>Two desks. One supply line.</h2>
-          <ul className="checklist">
-            <li>Wholesale &amp; distributor partnerships</li>
-            <li>Custom size &amp; packaging</li>
-            <li>Confirmed reference on successful send</li>
-          </ul>
-          <article>
-            <span>01 · {usa.region}</span>
-            <p>{usa.place}</p>
-            <a href={`mailto:${usa.email}`}>{usa.email}</a>
-            <a href={usa.phoneHref}>{usa.phone}</a>
-          </article>
-          <article>
-            <span>02 · {nepal.region}</span>
-            <p>{nepal.place}</p>
-            <a href={`mailto:${company.email}`}>{company.email}</a>
-            <a href={nepal.phoneHref}>{nepal.phone}</a>
-          </article>
+      <CurtainSplit className="contact contact-desk" aria-label="Offices and wholesale enquiry">
+        <CurtainPanel as="aside" side="left" className="contact-desk__rail">
+          <div className="contact-desk__rail-top">
+            <p className="contact-desk__stamp">Dispatch desk</p>
+            <p className="eyebrow contact-desk__eyebrow">Offices</p>
+            <h2>Two desks. One supply line.</h2>
+            <ul className="checklist contact-desk__checklist">
+              <li>Wholesale &amp; distributor partnerships</li>
+              <li>Custom size &amp; packaging</li>
+              <li>Confirmed reference on successful send</li>
+            </ul>
+          </div>
+
+          <div className="contact-desk__ports">
+            <article className="contact-desk__port">
+              <div className="contact-desk__port-code" aria-hidden="true">
+                SEA
+              </div>
+              <div className="contact-desk__port-body">
+                <span>01 · {usa.region}</span>
+                <p>{usa.place}</p>
+                <a href={`mailto:${usa.email}`}>{usa.email}</a>
+                <a href={usa.phoneHref}>{usa.phone}</a>
+              </div>
+            </article>
+
+            <article className="contact-desk__port">
+              <div className="contact-desk__port-code" aria-hidden="true">
+                KTM
+              </div>
+              <div className="contact-desk__port-body">
+                <span>02 · {nepal.region}</span>
+                <p>{nepal.place}</p>
+                <a href={`mailto:${company.email}`}>{company.email}</a>
+                <a href={nepal.phoneHref}>{nepal.phone}</a>
+              </div>
+            </article>
+          </div>
         </CurtainPanel>
 
         <CurtainPanel
           as="form"
           side="right"
-          className="contact__form"
+          className="contact-desk__ticket"
           onSubmit={handleSubmit}
           noValidate
         >
+          <span className="contact-desk__perforation" aria-hidden="true" />
+
           {status === 'success' ? (
-            <div className="form-success" role="status">
-              <p className="eyebrow">Received</p>
-              <h3>Your request is on record</h3>
+            <div className="form-success contact-desk__success" role="status">
+              <p className="contact-desk__stamp">On record</p>
+              <h3>Your request is logged</h3>
               <p>
                 {serverMessage} {submissionId ? `Reference: ${submissionId}.` : ''} Email{' '}
                 <a href={`mailto:${company.email}`}>{company.email}</a> if you need to add detail.
@@ -117,11 +136,16 @@ export default function Contact() {
             </div>
           ) : (
             <>
-              <p className="eyebrow">Enquiry</p>
-              <h3>Request wholesale info</h3>
-              <p>Include size mix, estimated volume, destination market, and preferred timeline.</p>
+              <header className="contact-desk__ticket-head">
+                <p className="contact-desk__stamp">Wholesale ticket</p>
+                <p className="eyebrow contact-desk__eyebrow">Enquiry</p>
+                <h3>Request wholesale info</h3>
+                <p className="contact-desk__lede">
+                  Include size mix, estimated volume, destination market, and preferred timeline.
+                </p>
+              </header>
 
-              <div className="fields">
+              <div className="fields contact-desk__fields">
                 <label>
                   <span>First name</span>
                   <input
@@ -170,13 +194,13 @@ export default function Contact() {
                 </label>
               </div>
 
-              <div className="form-foot">
+              <div className="form-foot contact-desk__foot">
                 {status === 'error' ? (
                   <p className="form-error" role="alert">
                     {serverMessage}
                   </p>
                 ) : null}
-                <button className="btn btn--primary" type="submit" disabled={status === 'submitting'}>
+                <button className="btn btn--chew" type="submit" disabled={status === 'submitting'}>
                   {status === 'submitting' ? 'Sending enquiry…' : 'Send wholesale enquiry'}
                 </button>
               </div>

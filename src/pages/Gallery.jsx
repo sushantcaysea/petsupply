@@ -11,7 +11,7 @@ export default function Gallery() {
     { type: 'image', src: media.lifestyleNew, caption: 'At home with the chew' },
     { type: 'image', src: media.productStudio, caption: 'Product study' },
     { type: 'video', src: media.processVideo, caption: 'Craft in motion' },
-    { type: 'image', src: imgs.heroHimalaya, caption: 'Himalayan origin' },
+    { type: 'image', src: imgs.heroHimalaya, caption: 'Mount Everest' },
     { type: 'image', src: imgs.sack, caption: 'Wholesale supply' },
   ]
 

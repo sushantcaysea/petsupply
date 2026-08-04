@@ -331,14 +331,14 @@ export const processSteps = [
     num: '03',
     title: 'Quality',
     text: 'Every piece hand-checked. HACCP, cGMP, and PCQI-verified moisture and pathogen testing.',
-    image: '/images/process/quality.jpg',
+    image: '/images/process/quality-stage.png',
     hasText: false,
   },
   {
     num: '04',
     title: 'Packaging',
     text: 'Recycled food-grade packing under GMP — ready to ship with a five-year shelf life.',
-    image: '/images/process/packaging-hq.jpg',
+    image: '/images/process/packaging-stage.png',
     hasText: false,
   },
 ]

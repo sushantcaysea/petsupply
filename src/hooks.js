@@ -14,38 +14,35 @@ export function useReveal(rootRef, key = 0) {
     const nodes = [...root.querySelectorAll('[data-reveal]')]
     const reduce = prefersReducedMotion()
 
-    const reveal = (node) => {
-      node.classList.add('is-visible')
-      node.querySelectorAll('[data-reveal]').forEach((child) => {
-        child.classList.add('is-visible')
-      })
-    }
+    const show = (node) => node.classList.add('is-visible')
+    const hide = (node) => node.classList.remove('is-visible')
 
     if (reduce || typeof IntersectionObserver === 'undefined') {
-      nodes.forEach(reveal)
+      nodes.forEach(show)
       return undefined
     }
 
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
-          if (!entry.isIntersecting) return
-          if (entry.intersectionRatio < 0.08) return
-          reveal(entry.target)
-          observer.unobserve(entry.target)
+          // Scroll down → settle in. Scroll up / leave → gently reverse.
+          if (entry.isIntersecting && entry.intersectionRatio >= 0.12) {
+            show(entry.target)
+          } else if (!entry.isIntersecting) {
+            hide(entry.target)
+          }
         })
       },
       {
-        threshold: [0.08, 0.18, 0.32, 0.5],
-        rootMargin: '0px 0px -8% 0px',
+        threshold: [0, 0.12, 0.28, 0.5],
+        rootMargin: '0px 0px -6% 0px',
       },
     )
 
     const frame = requestAnimationFrame(() => {
-      nodes.forEach((node, index) => {
-        // Auto stagger siblings that share a parent and have no delay set
+      nodes.forEach((node) => {
         if (!node.hasAttribute('data-delay')) {
-          const siblings = [...node.parentElement?.children || []].filter((el) =>
+          const siblings = [...(node.parentElement?.children || [])].filter((el) =>
             el.hasAttribute?.('data-reveal'),
           )
           if (siblings.length > 1) {
@@ -56,16 +53,11 @@ export function useReveal(rootRef, key = 0) {
 
         const rect = node.getBoundingClientRect()
         const inView =
-          rect.top < window.innerHeight * 0.9 &&
-          rect.bottom > window.innerHeight * 0.05 &&
-          rect.top < window.innerHeight
+          rect.top < window.innerHeight * 0.88 &&
+          rect.bottom > window.innerHeight * 0.08
 
-        // Stagger hero-adjacent items slightly on first paint
-        if (inView) {
-          window.setTimeout(() => reveal(node), Math.min(index, 6) * 40)
-        } else {
-          observer.observe(node)
-        }
+        if (inView) show(node)
+        observer.observe(node)
       })
     })
 
@@ -146,6 +138,7 @@ export function useMediaDrift(pageRef, key = 0) {
       medias.forEach((media) => {
         const parent = media.parentElement
         if (!parent) return
+        if (media.closest('.kb-scene')) return
         const revealHost = media.closest('[data-reveal]')
         if (revealHost && !revealHost.classList.contains('is-visible')) return
         const rect = parent.getBoundingClientRect()

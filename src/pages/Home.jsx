@@ -1,5 +1,6 @@
 import { useEffect, useRef } from 'react'
 import { Link } from 'react-router-dom'
+import FaqAccordion from '../components/FaqAccordion'
 import HeroChew from '../components/HeroChew'
 import { products, qualityPledges } from '../data'
 import { usePageMotion, useScrollProgress, useViewProgress } from '../hooks'
@@ -29,12 +30,14 @@ const sizeLine = products.filter((p) => !p.contactOnly)
 export default function Home() {
   const pageRef = usePageMotion()
   const scrubRef = useRef(null)
+  const whyRef = useRef(null)
   const dogsRef = useRef(null)
   const storyRef = useRef(null)
   const pledgesRef = useRef(null)
   const catalogRef = useRef(null)
   const stillRef = useRef(null)
   const easeScene = (t) => t * t * (3 - 2 * t)
+  const whyIn = easeScene(useViewProgress(whyRef))
   const processIn = easeScene(useViewProgress(scrubRef))
   const dogsIn = easeScene(useViewProgress(dogsRef))
   const storyIn = easeScene(useViewProgress(storyRef))
@@ -99,8 +102,8 @@ export default function Home() {
         </div>
       </HeroChew>
 
-      <section className="kb-split">
-        <div className="kb-split__media kb-split__dock">
+      <section className="kb-split kb-scene" ref={whyRef} style={{ '--scene-in': whyIn }}>
+        <div className="kb-split__media kb-split__dock kb-scene__media">
           <img
             className="kb-split__dock-img kb-split__dock-img--static"
             src={media.productStudio}
@@ -108,9 +111,9 @@ export default function Home() {
             decoding="async"
           />
         </div>
-        <div className="kb-split__copy" data-reveal="right" data-delay="1">
+        <div className="kb-split__copy kb-scene__copy">
           <p className="eyebrow">Why Sansaar</p>
-          <h2 data-reveal="text">Three ingredients. Zero excuses.</h2>
+          <h2>Three ingredients. Zero excuses.</h2>
           <p>
             Skim milk, citrus juice, salt. Pressed, smoked, dried, aged two months. A cleaner alternative to rawhide —
             for dogs and for the buyers stocking the aisle.
@@ -258,7 +261,7 @@ export default function Home() {
         style={{ '--scene-in': storyIn }}
       >
         <div className="kb-split__media kb-scene__media">
-          <img src={imgs.heroHimalaya} alt="Himalayan foothills" loading="lazy" />
+          <img src={imgs.heroHimalaya} alt="Mount Everest in the Himalayas" loading="lazy" />
         </div>
         <div className="kb-split__copy kb-scene__copy">
           <p className="eyebrow">Story</p>
@@ -284,14 +287,7 @@ export default function Home() {
             <p className="eyebrow">FAQ</p>
             <h2 className="section-title">Buyer questions</h2>
           </div>
-          <div className="kb-faq">
-            {faqs.map((item, i) => (
-              <details key={item.q} data-reveal="up" data-delay={String((i % 4) + 1)}>
-                <summary>{item.q}</summary>
-                <p>{item.a}</p>
-              </details>
-            ))}
-          </div>
+          <FaqAccordion items={faqs} />
         </div>
       </section>
     </main>

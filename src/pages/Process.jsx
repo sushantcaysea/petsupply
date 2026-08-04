@@ -80,25 +80,29 @@ export default function Process() {
       <section className="journey" ref={journeyRef} aria-label="Process journey">
         <div className="journey__shell">
           <aside className="journey__rail" data-reveal="left" aria-label="Step navigator">
-            <p className="eyebrow">The path</p>
-            <ol>
-              {processSteps.map((step, i) => (
-                <li key={step.num}>
-                  <button
-                    type="button"
-                    className={active === i ? 'is-active' : undefined}
-                    onClick={() => jumpTo(i)}
-                    aria-current={active === i ? 'step' : undefined}
-                  >
-                    <span>{step.num}</span>
-                    <strong>{step.title}</strong>
-                    <em>{SHORT[step.num]}</em>
-                  </button>
-                </li>
-              ))}
-            </ol>
-            <div className="journey__progress" aria-hidden="true">
-              <i style={{ height: `${((active + 1) / processSteps.length) * 100}%` }} />
+            <p className="eyebrow journey__rail-kicker">The path</p>
+            <p className="journey__rail-lede">Four stages from pasture to packed chew.</p>
+            <div className="journey__rail-track">
+              <div className="journey__progress" aria-hidden="true">
+                <i style={{ height: `${((active + 1) / processSteps.length) * 100}%` }} />
+              </div>
+              <ol>
+                {processSteps.map((step, i) => (
+                  <li key={step.num}>
+                    <button
+                      type="button"
+                      className={active === i ? 'is-active' : undefined}
+                      onClick={() => jumpTo(i)}
+                      aria-current={active === i ? 'step' : undefined}
+                    >
+                      <span className="journey__dot" aria-hidden="true" />
+                      <span className="journey__num">{step.num}</span>
+                      <strong>{step.title}</strong>
+                      <em>{SHORT[step.num]}</em>
+                    </button>
+                  </li>
+                ))}
+              </ol>
             </div>
           </aside>
 

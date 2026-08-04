@@ -1,5 +1,6 @@
 import { useLayoutEffect, useRef } from 'react'
 import gsap from 'gsap'
+import { useLenis } from 'lenis/react'
 import ChewShowcase3D from './ChewShowcase3D'
 
 export default function HeroChew({ className = '', children }) {
@@ -10,6 +11,23 @@ export default function HeroChew({ className = '', children }) {
   const cueRef = useRef(null)
   const floorRef = useRef(null)
   const glowRef = useRef(null)
+  const cueHiddenRef = useRef(false)
+
+  useLenis((lenis) => {
+    const cue = cueRef.current
+    if (!cue) return
+
+    const shouldHide = lenis.scroll > 24
+    if (shouldHide === cueHiddenRef.current) return
+    cueHiddenRef.current = shouldHide
+
+    gsap.to(cue, {
+      autoAlpha: shouldHide ? 0 : 1,
+      duration: 0.4,
+      ease: 'power2.out',
+      overwrite: 'auto',
+    })
+  })
 
   useLayoutEffect(() => {
     const section = sectionRef.current
@@ -83,16 +101,22 @@ export default function HeroChew({ className = '', children }) {
       }
 
       if (cue) {
-        gsap.fromTo(cue, { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.55, delay: 0.85 })
-        if (!reduce) {
-          gsap.to(cue.querySelector('i'), {
-            y: 6,
-            duration: 1.1,
-            ease: 'sine.inOut',
-            yoyo: true,
-            repeat: -1,
-            delay: 1.1,
-          })
+        const alreadyScrolled = window.scrollY > 24
+        cueHiddenRef.current = alreadyScrolled
+        if (alreadyScrolled) {
+          gsap.set(cue, { autoAlpha: 0 })
+        } else {
+          gsap.fromTo(cue, { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.55, delay: 0.85 })
+          if (!reduce) {
+            gsap.to(cue.querySelector('i'), {
+              y: 6,
+              duration: 1.1,
+              ease: 'sine.inOut',
+              yoyo: true,
+              repeat: -1,
+              delay: 1.1,
+            })
+          }
         }
       }
     }, section)
